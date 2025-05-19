@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Qué es JavaScript? - Juego Interactivo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .cuadrado {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            margin: 20px auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .info {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #e9f7fe;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¿Qué es JavaScript?</h1>
+        
+        <div class="info">
+            <p>JavaScript es un lenguaje de programación que añade <strong>interactividad</strong> a las páginas web.</p>
+            <p>¡Haz clic en el cuadrado azul para ver JavaScript en acción!</p>
+        </div>
+        
+        <div id="cuadrado" class="cuadrado"></div>
+        
+        <p id="clicks">Número de clics: 0</p>
+        
+        <button id="reiniciar">Reiniciar</button>
+        
+        <div class="info">
+            <p>Este juego demuestra características básicas de JavaScript:</p>
+            <ul style="text-align: left">
+                <li>Detección de eventos (clic)</li>
+                <li>Manipulación del DOM (cambiar colores y texto)</li>
+                <li>Trabajo con variables (contador de clics)</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Obtenemos referencia a los elementos HTML
+        const cuadrado = document.getElementById('cuadrado');
+        const contadorClics = document.getElementById('clicks');
+        const botonReiniciar = document.getElementById('reiniciar');
+        
+        // Inicializamos la variable para contar clics
+        let numClics = 0;
+        
+        // Lista de colores para cambiar
+        const colores = ['red', 'green', 'purple', 'orange', 'pink', 'yellow'];
+        
+        // Añadimos evento de clic al cuadrado
+        cuadrado.addEventListener('click', function() {
+            // Incrementamos el contador
+            numClics++;
+            
+            // Actualizamos el texto
+            contadorClics.textContent = 'Número de clics: ' + numClics;
+            
+            // Cambiamos el color del cuadrado
+            const colorAleatorio = colores[numClics % colores.length];
+            cuadrado.style.backgroundColor = colorAleatorio;
+            
+            // Cambiamos el tamaño
+            const nuevoTamano = 100 + (numClics * 10);
+            if (nuevoTamano <= 200) {  // Limitamos el tamaño máximo
+                cuadrado.style.width = nuevoTamano + 'px';
+                cuadrado.style.height = nuevoTamano + 'px';
+            }
+        });
+        
+        // Añadimos evento para reiniciar
+        botonReiniciar.addEventListener('click', function() {
+            numClics = 0;
+            contadorClics.textContent = 'Número de clics: 0';
+            cuadrado.style.backgroundColor = 'blue';
+            cuadrado.style.width = '100px';
+            cuadrado.style.height = '100px';
+        });
+    </script>
+</body>
+</html>

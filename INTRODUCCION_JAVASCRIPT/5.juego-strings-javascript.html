@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strings en JavaScript - Juego de Letras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .juego {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .info-strings {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #e9f7fe;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .palabra {
+            letter-spacing: 5px;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .letras-usadas {
+            margin: 15px 0;
+            font-size: 16px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px;
+            width: 50px;
+            text-align: center;
+            text-transform: lowercase;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #mensaje {
+            margin-top: 15px;
+            min-height: 20px;
+        }
+
+        .method {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .vidas {
+            font-size: 18px;
+            margin: 15px 0;
+        }
+
+        .vida-icono {
+            color: red;
+            font-size: 20px;
+            margin: 0 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Strings en JavaScript</h1>
+        <h2>Juego del Ahorcado</h2>
+
+        <div class="juego">
+            <p>Adivina la palabra letra por letra. ¡Tienes 6 vidas!</p>
+
+            <div id="vidas" class="vidas">
+                <span class="vida-icono">❤️</span>
+                <span class="vida-icono">❤️</span>
+                <span class="vida-icono">❤️</span>
+                <span class="vida-icono">❤️</span>
+                <span class="vida-icono">❤️</span>
+                <span class="vida-icono">❤️</span>
+            </div>
+
+            <div id="palabra" class="palabra">------</div>
+
+            <div id="letras-usadas" class="letras-usadas">Letras usadas: </div>
+
+            <input type="text" id="letra" maxlength="1" placeholder="?">
+            <button id="adivinar">Adivinar</button>
+            <button id="reiniciar">Nuevo Juego</button>
+
+            <div id="mensaje"></div>
+        </div>
+
+        <div class="info-strings">
+            <h3>Métodos de Strings utilizados en este juego:</h3>
+            <ul>
+                <li><span class="method">length</span> - Para conocer la longitud de la palabra.</li>
+                <li><span class="method">charAt()</span> - Para obtener un carácter específico de la palabra.</li>
+                <li><span class="method">indexOf()</span> - Para buscar si una letra está en la palabra.</li>
+                <li><span class="method">toUpperCase()/toLowerCase()</span> - Para normalizar las letras.</li>
+                <li><span class="method">split()</span> - Para convertir la palabra en un array de letras.</li>
+                <li><span class="method">join()</span> - Para unir el array de letras en una cadena.</li>
+                <li><span class="method">replace()</span> - Para reemplazar guiones con letras descubiertas.</li>
+                <li><span class="method">includes()</span> - Para verificar si la letra ya se ha usado.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Lista de posibles palabras
+        const palabras = ["javascript", "programacion", "aplicacion", "desarrollo", "funciones", "variables", "strings", "navegador"];
+
+        // Variables del juego
+        let palabraSecreta;
+        let palabraMostrada;
+        let letrasUsadas;
+        let vidas;
+
+        // Elementos del DOM
+        const inputLetra = document.getElementById('letra');
+        const botonAdivinar = document.getElementById('adivinar');
+        const botonReiniciar = document.getElementById('reiniciar');
+        const elementoPalabra = document.getElementById('palabra');
+        const elementoVidas = document.getElementById('vidas');
+        const elementoLetrasUsadas = document.getElementById('letras-usadas');
+        const elementoMensaje = document.getElementById('mensaje');
+
+        // Función para elegir una palabra aleatoria
+        function elegirPalabra() {
+            const indice = Math.floor(Math.random() * palabras.length);
+            return palabras[indice];
+        }
+
+        // Función para iniciar o reiniciar el juego
+        function iniciarJuego() {
+            palabraSecreta = elegirPalabra();
+            palabraMostrada = "-".repeat(palabraSecreta.length);
+            letrasUsadas = [];
+            vidas = 6;
+
+            // Actualizamos la interfaz
+            actualizarPalabra();
+            actualizarLetrasUsadas();
+            actualizarVidas();
+
+            elementoMensaje.textContent = "¡Juego iniciado! Adivina la palabra letra por letra.";
+            elementoMensaje.style.color = "black";
+
+            // Habilitamos el input y enfocamos
+            inputLetra.disabled = false;
+            inputLetra.value = "";
+            inputLetra.focus();
+            botonAdivinar.disabled = false;
+
+            // Para depuración, mostramos la palabra en la consola
+            console.log("Palabra secreta: " + palabraSecreta);
+        }
+
+        // Función para actualizar la palabra mostrada
+        function actualizarPalabra() {
+            elementoPalabra.textContent = palabraMostrada.split('').join(' ');
+        }
+
+        // Función para actualizar las letras usadas
+        function actualizarLetrasUsadas() {
+            elementoLetrasUsadas.textContent = "Letras usadas: " + letrasUsadas.join(", ");
+        }
+
+        // Función para actualizar las vidas
+        function actualizarVidas() {
+            const corazones = "❤️".repeat(vidas);
+            elementoVidas.innerHTML = corazones;
+        }
+
+        // Función para comprobar la letra ingresada
+        function comprobarLetra() {
+            // Obtenemos la letra y la convertimos a minúscula
+            const letra = inputLetra.value.toLowerCase();
+
+            // Validamos la entrada
+            if (letra.length !== 1 || !/[a-z]/.test(letra)) {
+                elementoMensaje.textContent = "Por favor, introduce una letra válida.";
+                elementoMensaje.style.color = "red";
+                inputLetra.value = "";
+                inputLetra.focus();
+                return;
+            }
+
+            // Comprobamos si la letra ya se ha usado
+            if (letrasUsadas.includes(letra)) {
+                elementoMensaje.textContent = "Ya has usado la letra '" + letra + "'. Intenta con otra.";
+                elementoMensaje.style.color = "orange";
+                inputLetra.value = "";
+                inputLetra.focus();
+                return;
+            }
+
+            // Añadimos la letra a las usadas
+            letrasUsadas.push(letra);
+            actualizarLetrasUsadas();
+
+            // Comprobamos si la letra está en la palabra
+            if (palabraSecreta.indexOf(letra) !== -1) {
+                // La letra está en la palabra, actualizamos la palabra mostrada
+                let nuevaPalabraMostrada = "";
+                for (let i = 0; i < palabraSecreta.length; i++) {
+                    if (palabraSecreta.charAt(i) === letra) {
+                        nuevaPalabraMostrada += letra;
+                    } else {
+                        nuevaPalabraMostrada += palabraMostrada.charAt(i);
+                    }
+                }
+                palabraMostrada = nuevaPalabraMostrada;
+                actualizarPalabra();
+
+                elementoMensaje.textContent = "¡Bien! La letra '" + letra + "' está en la palabra.";
+                elementoMensaje.style.color = "green";
+
+                // Comprobamos si ha ganado
+                if (!palabraMostrada.includes('-')) {
+                    finalizarJuego(true);
+                    return;
+                }
+            } else {
+                // La letra no está en la palabra
+                vidas--;
+                actualizarVidas();
+
+                elementoMensaje.textContent = "¡Oh no! La letra '" + letra + "' no está en la palabra.";
+                elementoMensaje.style.color = "red";
+
+                // Comprobamos si ha perdido
+                if (vidas === 0) {
+                    finalizarJuego(false);
+                    return;
+                }
+            }
+
+            // Limpiamos y enfocamos el input
+            inputLetra.value = "";
+            inputLetra.focus();
+        }
+
+        // Función para finalizar el juego
+        function finalizarJuego(victoria) {
+            if (victoria) {
+                elementoMensaje.textContent = "¡Felicidades! Has adivinado la palabra: " + palabraSecreta;
+                elementoMensaje.style.color = "green";
+            } else {
+                elementoMensaje.textContent = "¡Oh no! Te has quedado sin vidas. La palabra era: " + palabraSecreta;
+                elementoMensaje.style.color = "red";
+                elementoPalabra.textContent = palabraSecreta.split('').join(' ');
+            }
+
+            // Deshabilitamos el input y el botón
+            inputLetra.disabled = true;
+            botonAdivinar.disabled = true;
+        }
+
+        // Eventos
+        botonAdivinar.addEventListener('click', comprobarLetra);
+        botonReiniciar.addEventListener('click', iniciarJuego);
+
+        // Permitir presionar Enter para adivinar
+        inputLetra.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter' && !inputLetra.disabled) {
+                comprobarLetra();
+            }
+        });
+
+        // Iniciamos el juego al cargar la página
+        iniciarJuego();
+    </script>
+</body>
+
+</html>

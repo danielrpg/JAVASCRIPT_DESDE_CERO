@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Cómo y dónde incluir JavaScript?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .panel {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .codigo {
+            background-color: #f5f5f5;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-align: left;
+            font-family: monospace;
+            border: 1px solid #ddd;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .resultado {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e9f7fe;
+            border-radius: 5px;
+            min-height: 20px;
+        }
+    </style>
+    
+    <!-- Método 1: JavaScript incluido en la cabecera (head) con etiqueta script -->
+    <script>
+        function metodo1() {
+            document.getElementById("resultado1").innerHTML = 
+                "¡Funcionó! Este código JavaScript está en la sección &lt;head&gt; del documento.";
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>¿Cómo y dónde incluir JavaScript?</h1>
+        <p>Este juego muestra las diferentes formas de incluir JavaScript en una página HTML.</p>
+        
+        <!-- Método 1: JavaScript en la cabecera -->
+        <div class="panel">
+            <h2>Método 1: En la cabecera (head)</h2>
+            <div class="codigo">
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;script&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;function metodo1() {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById("resultado1").innerHTML = "...";<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;&lt;/script&gt;<br>
+                &lt;/head&gt;
+            </div>
+            <button onclick="metodo1()">Probar Método 1</button>
+            <div id="resultado1" class="resultado"></div>
+        </div>
+        
+        <!-- Método 2: JavaScript en el cuerpo (body) -->
+        <div class="panel">
+            <h2>Método 2: En el cuerpo (body)</h2>
+            <div class="codigo">
+                &lt;body&gt;<br>
+                &nbsp;&nbsp;&lt;script&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;function metodo2() {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById("resultado2").innerHTML = "...";<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;&lt;/script&gt;<br>
+                &lt;/body&gt;
+            </div>
+            <button onclick="metodo2()">Probar Método 2</button>
+            <div id="resultado2" class="resultado"></div>
+        </div>
+        
+        <!-- Método 3: JavaScript en línea -->
+        <div class="panel">
+            <h2>Método 3: JavaScript en línea (inline)</h2>
+            <div class="codigo">
+                &lt;button onclick="document.getElementById('resultado3').innerHTML = '¡Funcionó!...';"&gt;
+            </div>
+            <button onclick="document.getElementById('resultado3').innerHTML = '¡Funcionó! Este JavaScript está escrito directamente en el atributo onclick del botón.'">Probar Método 3</button>
+            <div id="resultado3" class="resultado"></div>
+        </div>
+        
+        <!-- Método 4: JavaScript desde archivo externo -->
+        <div class="panel">
+            <h2>Método 4: Desde archivo externo</h2>
+            <div class="codigo">
+                &lt;script src="script.js"&gt;&lt;/script&gt;
+            </div>
+            <button onclick="metodo4()">Probar Método 4</button>
+            <div id="resultado4" class="resultado"></div>
+            <p><small>Nota: En este ejemplo, simulamos un archivo externo.</small></p>
+        </div>
+    </div>
+    
+    <!-- Método 2: JavaScript incluido al final del cuerpo (body) -->
+    <script>
+        function metodo2() {
+            document.getElementById("resultado2").innerHTML = 
+                "¡Funcionó! Este código JavaScript está al final de la sección &lt;body&gt; del documento.";
+        }
+        
+        // Simulando que este código viene de un archivo externo
+        function metodo4() {
+            document.getElementById("resultado4").innerHTML = 
+                "¡Funcionó! Este código simula venir de un archivo JavaScript externo (script.js).";
+        }
+    </script>
+</body>
+</html>

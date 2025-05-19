@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventanas de Diálogo de JavaScript - Quiz Aventura</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .juego {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .info {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #e9f7fe;
+            border-radius: 5px;
+            text-align: left;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .dialog-example {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: left;
+            font-family: monospace;
+        }
+        .dialog-image {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 15px auto;
+            max-width: 90%;
+            border-radius: 5px;
+        }
+        .dialog-image img {
+            max-width: 100%;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        .resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f8ff;
+            border-radius: 5px;
+            font-weight: bold;
+            min-height: 50px;
+        }
+        .historial {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            text-align: left;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+        }
+        .dialogo {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ventanas de Diálogo de JavaScript</h1>
+        <h2>Quiz Aventura</h2>
+        
+        <div class="juego">
+            <p>Embárcate en una aventura que utiliza las tres ventanas de diálogo de JavaScript: <strong>alert</strong>, <strong>confirm</strong> y <strong>prompt</strong>.</p>
+            <p>Cada decisión que tomes afectará tu puntuación y el desarrollo de la historia.</p>
+            
+            <button id="iniciar-juego">Iniciar Aventura</button>
+            
+            <div class="resultado" id="resultado"></div>
+            
+            <div class="historial" id="historial">
+                <p>El historial de tu aventura aparecerá aquí...</p>
+            </div>
+        </div>
+        
+        <div class="info">
+            <h3>Las tres ventanas de diálogo en JavaScript:</h3>
+            
+            <h4>1. alert() - Muestra un mensaje</h4>
+            <div class="dialog-example">
+                alert("¡Bienvenido a la aventura!");
+            </div>
+            <div class="dialog-image">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMTUwIiB2aWV3Qm94PSIwIDAgMzAwIDE1MCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2NjYyIgc3Ryb2tlLXdpZHRoPSIyIi8+PHJlY3QgeD0iMTAiIHk9IjEwIiB3aWR0aD0iMjgwIiBoZWlnaHQ9IjEzMCIgZmlsbD0iI2Y1ZjVmNSIgc3Ryb2tlPSIjY2NjIiBzdHJva2Utd2lkdGg9IjEiLz48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIxNSIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjNDQ0IiBzdHJva2Utd2lkdGg9IjIiLz48dGV4dCB4PSIzMCIgeT0iMzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+ITwvdGV4dD48dGV4dCB4PSI3MCIgeT0iMzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiI+QWxlcnQgLSBQw6FnaW5hIGRpY2U8L3RleHQ+PHRleHQgeD0iMTUwIiB5PSI3MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7CoUJpZW52ZW5pZG8gYSBsYSBhdmVudHVyYSE8L3RleHQ+PHJlY3QgeD0iMTIwIiB5PSI5MCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjMwIiBmaWxsPSIjZjBmMGYwIiBzdHJva2U9IiNjY2MiIHN0cm9rZS13aWR0aD0iMSIgcng9IjUiLz48dGV4dCB4PSIxNTAiIHk9IjExMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5BY2VwdGFyPC90ZXh0Pjwvc3ZnPg==" alt="Ejemplo de Alert">
+            </div>
+            <p><span class="dialogo">alert()</span> muestra un mensaje simple con un botón de "Aceptar". No devuelve ningún valor.</p>
+            
+            <h4>2. confirm() - Solicita confirmación</h4>
+            <div class="dialog-example">
+                let respuesta = confirm("¿Quieres continuar con la aventura?");
+                if (respuesta) {
+                    // El usuario hizo clic en "Aceptar"
+                } else {
+                    // El usuario hizo clic en "Cancelar"
+                }
+            </div>
+            <div class="dialog-image">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMTUwIiB2aWV3Qm94PSIwIDAgMzAwIDE1MCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2NjYyIgc3Ryb2tlLXdpZHRoPSIyIi8+PHJlY3QgeD0iMTAiIHk9IjEwIiB3aWR0aD0iMjgwIiBoZWlnaHQ9IjEzMCIgZmlsbD0iI2Y1ZjVmNSIgc3Ryb2tlPSIjY2NjIiBzdHJva2Utd2lkdGg9IjEiLz48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIxNSIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjNDQ0IiBzdHJva2Utd2lkdGg9IjIiLz48dGV4dCB4PSIzMCIgeT0iMzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+PzwvdGV4dD48dGV4dCB4PSI3MCIgeT0iMzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiI+Q29uZmlybSAtIFDDoWdpbmEgZGljZTwvdGV4dD48dGV4dCB4PSIxNTAiIHk9IjcwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiPsK/UXVpZXJlcyBjb250aW51YXIgY29uIGxhIGF2ZW50dXJhPzwvdGV4dD48cmVjdCB4PSI4MCIgeT0iOTAiIHdpZHRoPSI2MCIgaGVpZ2h0PSIzMCIgZmlsbD0iI2YwZjBmMCIgc3Ryb2tlPSIjY2NjIiBzdHJva2Utd2lkdGg9IjEiIHJ4PSI1Ii8+PHRleHQgeD0iMTEwIiB5PSIxMTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QWNlcHRhcjwvdGV4dD48cmVjdCB4PSIxNjAiIHk9IjkwIiB3aWR0aD0iNjAiIGhlaWdodD0iMzAiIGZpbGw9IiNmMGYwZjAiIHN0cm9rZT0iI2NjYyIgc3Ryb2tlLXdpZHRoPSIxIiByeD0iNSIvPjx0ZXh0IHg9IjE5MCIgeT0iMTEwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkNhbmNlbGFyPC90ZXh0Pjwvc3ZnPg==" alt="Ejemplo de Confirm">
+            </div>
+            <p><span class="dialogo">confirm()</span> muestra un mensaje con dos botones: "Aceptar" y "Cancelar". Devuelve <code>true</code> si el usuario hace clic en "Aceptar" y <code>false</code> si hace clic en "Cancelar".</p>
+            
+            <h4>3. prompt() - Solicita información</h4>
+            <div class="dialog-example">
+                let nombre = prompt("¿Cuál es tu nombre de aventurero?", "Anónimo");
+                if (nombre === null) {
+                    // El usuario hizo clic en "Cancelar"
+                } else {
+                    // El usuario ingresó un valor y hizo clic en "Aceptar"
+                }
+            </div>
+            <div class="dialog-image">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMTUwIiB2aWV3Qm94PSIwIDAgMzAwIDE1MCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2NjYyIgc3Ryb2tlLXdpZHRoPSIyIi8+PHJlY3QgeD0iMTAiIHk9IjEwIiB3aWR0aD0iMjgwIiBoZWlnaHQ9IjEzMCIgZmlsbD0iI2Y1ZjVmNSIgc3Ryb2tlPSIjY2NjIiBzdHJva2Utd2lkdGg9IjEiLz48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIxNSIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjNDQ0IiBzdHJva2Utd2lkdGg9IjIiLz48dGV4dCB4PSIzMCIgeT0iMzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+PzwvdGV4dD48dGV4dCB4PSI3MCIgeT0iMzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiI+UHJvbXB0IC0gUMOhZ2luYSBkaWNlPC90ZXh0Pjx0ZXh0IHg9IjE1MCIgeT0iNjAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+wr9DdcOhbCBlcyB0dSBub21icmUgZGUgYXZlbnR1cmVybz88L3RleHQ+PHJlY3QgeD0iNTAiIHk9IjcwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI1IiBmaWxsPSIjZmZmIiBzdHJva2U9IiNjY2MiIHN0cm9rZS13aWR0aD0iMSIvPjx0ZXh0IHg9IjYwIiB5PSI4NyIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIj5BbsOzbmltbzwvdGV4dD48cmVjdCB4PSI4MCIgeT0iMTEwIiB3aWR0aD0iNjAiIGhlaWdodD0iMzAiIGZpbGw9IiNmMGYwZjAiIHN0cm9rZT0iI2NjYyIgc3Ryb2tlLXdpZHRoPSIxIiByeD0iNSIvPjx0ZXh0IHg9IjExMCIgeT0iMTMwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkFjZXB0YXI8L3RleHQ+PHJlY3QgeD0iMTYwIiB5PSIxMTAiIHdpZHRoPSI2MCIgaGVpZ2h0PSIzMCIgZmlsbD0iI2YwZjBmMCIgc3Ryb2tlPSIjY2NjIiBzdHJva2Utd2lkdGg9IjEiIHJ4PSI1Ii8+PHRleHQgeD0iMTkwIiB5PSIxMzAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Q2FuY2VsYXI8L3RleHQ+PC9zdmc+" alt="Ejemplo de Prompt">
+            </div>
+            <p><span class="dialogo">prompt()</span> muestra un mensaje con un campo de texto, un valor predeterminado opcional, y botones "Aceptar" y "Cancelar". Devuelve el texto ingresado si el usuario hace clic en "Aceptar" y <code>null</code> si hace clic en "Cancelar".</p>
+        </div>
+    </div>
+
+    <script>
+        // Elementos del DOM
+        const botonIniciar = document.getElementById('iniciar-juego');
+        const resultadoElement = document.getElementById('resultado');
+        const historialElement = document.getElementById('historial');
+        
+        // Variables del juego
+        let puntuacion = 0;
+        let nombreJugador = "";
+        
+        // Eventos
+        botonIniciar.addEventListener('click', iniciarJuego);
+        
+        // Función para iniciar el juego
+        function iniciarJuego() {
+            // Limpiamos el historial
+            historialElement.innerHTML = "";
+            puntuacion = 0;
+            
+            // Utilizamos alert para dar la bienvenida
+            alert("¡Bienvenido a la Quiz Aventura con ventanas de diálogo de JavaScript!");
+            agregarAlHistorial("SISTEMA: Mostró ventana de alerta con mensaje de bienvenida");
+            
+            // Utilizamos prompt para pedir el nombre
+            nombreJugador = prompt("¿Cuál es tu nombre de aventurero?", "Anónimo");
+            
+            if (nombreJugador === null) {
+                // El usuario canceló
+                resultadoElement.textContent = "Aventura cancelada. ¡Vuelve cuando estés listo!";
+                agregarAlHistorial("USUARIO: Canceló la introducción del nombre");
+                return;
+            } else if (nombreJugador.trim() === "") {
+                nombreJugador = "Anónimo";
+            }
+            
+            agregarAlHistorial(`USUARIO: Introdujo el nombre "${nombreJugador}"`);
+            
+            // Comenzamos la aventura
+            alert(`¡Bienvenido, ${nombreJugador}! Tu aventura está a punto de comenzar.`);
+            agregarAlHistorial(`SISTEMA: Mostró ventana de alerta saludando a ${nombreJugador}`);
+            
+            // Primera decisión usando confirm
+            const primeraPregunta = confirm("Te encuentras en un bosque oscuro. ¿Quieres seguir el camino iluminado por la luna?");
+            agregarAlHistorial(`SISTEMA: Mostró ventana de confirmación sobre seguir el camino iluminado`);
+            
+            if (primeraPregunta) {
+                // El usuario eligió seguir el camino
+                agregarAlHistorial("USUARIO: Decidió seguir el camino iluminado");
+                caminoIluminado();
+            } else {
+                // El usuario eligió no seguir el camino
+                agregarAlHistorial("USUARIO: Decidió no seguir el camino iluminado");
+                caminoOscuro();
+            }
+        }
+        
+        // Función para el camino iluminado
+        function caminoIluminado() {
+            alert("Sigues el camino iluminado y encuentras un claro en el bosque.");
+            agregarAlHistorial("SISTEMA: Mostró alerta sobre el claro en el bosque");
+            
+            // Pregunta usando prompt
+            const respuesta = prompt("En el claro hay una estatua antigua con una inscripción. ¿Qué palabra crees que está inscrita? (Pista: Es un concepto relacionado con JavaScript)");
+            agregarAlHistorial("SISTEMA: Mostró prompt sobre la inscripción en la estatua");
+            
+            if (respuesta === null) {
+                // El usuario canceló
+                finalizarAventura("Has decidido no responder al acertijo. La aventura termina aquí.");
+                return;
+            }
+            
+            agregarAlHistorial(`USUARIO: Respondió "${respuesta}" al acertijo`);
+            
+            // Comprobamos la respuesta
+            const respuestaLower = respuesta.toLowerCase().trim();
+            if (respuestaLower === "objeto" || respuestaLower === "function" || respuestaLower === "variable" || respuestaLower === "función" || respuestaLower === "array") {
+                puntuacion += 10;
+                alert(`¡Correcto! La palabra era "${respuesta}". La estatua se ilumina y revela un tesoro.`);
+                agregarAlHistorial("SISTEMA: Mostró alerta de respuesta correcta");
+                
+                // Segunda decisión
+                const segundaDecision = confirm("¿Quieres tomar el tesoro?");
+                agregarAlHistorial("SISTEMA: Mostró confirmación sobre tomar el tesoro");
+                
+                if (segundaDecision) {
+                    agregarAlHistorial("USUARIO: Decidió tomar el tesoro");
+                    puntuacion += 5;
+                    ultimaEtapa(true);
+                } else {
+                    agregarAlHistorial("USUARIO: Decidió no tomar el tesoro");
+                    puntuacion += 15;
+                    ultimaEtapa(false);
+                }
+                
+            } else {
+                alert(`"${respuesta}" no parece ser la palabra correcta. La estatua permanece inmóvil.`);
+                agregarAlHistorial("SISTEMA: Mostró alerta de respuesta incorrecta");
+                
+                // Le damos otra oportunidad
+                const segundaOportunidad = confirm("¿Quieres intentar con otra palabra?");
+                agregarAlHistorial("SISTEMA: Mostró confirmación para intentar de nuevo");
+                
+                if (segundaOportunidad) {
+                    agregarAlHistorial("USUARIO: Decidió intentar de nuevo");
+                    caminoIluminado();
+                } else {
+                    agregarAlHistorial("USUARIO: Decidió no intentar de nuevo");
+                    puntuacion -= 5;
+                    ultimaEtapa(false);
+                }
+            }
+        }
+        
+        // Función para el camino oscuro
+        function caminoOscuro() {
+            alert("Te adentras en la oscuridad y escuchas ruidos extraños a tu alrededor.");
+            agregarAlHistorial("SISTEMA: Mostró alerta sobre ruidos en la oscuridad");
+            
+            // El usuario debe resolver un acertijo numérico
+            const respuesta = prompt("Una criatura te bloquea el paso y te plantea un acertijo: '¿Cuántos tipos de ventanas de diálogo básicas existen en JavaScript?'");
+            agregarAlHistorial("SISTEMA: Mostró prompt con acertijo sobre ventanas de diálogo");
+            
+            if (respuesta === null) {
+                // El usuario canceló
+                finalizarAventura("Has decidido no responder al acertijo. La aventura termina aquí.");
+                return;
+            }
+            
+            agregarAlHistorial(`USUARIO: Respondió "${respuesta}" al acertijo`);
+            
+            // Comprobamos la respuesta
+            if (respuesta === "3") {
+                puntuacion += 15;
+                alert("¡Correcto! La criatura te deja pasar y te señala dos caminos.");
+                agregarAlHistorial("SISTEMA: Mostró alerta de respuesta correcta");
+                
+                // Segunda decisión
+                const segundaDecision = confirm("Uno de los caminos parece más largo pero seguro, el otro más corto pero peligroso. ¿Quieres tomar el camino corto y peligroso?");
+                agregarAlHistorial("SISTEMA: Mostró confirmación sobre qué camino tomar");
+                
+                if (segundaDecision) {
+                    agregarAlHistorial("USUARIO: Eligió el camino corto y peligroso");
+                    puntuacion += 10;
+                    ultimaEtapa(true);
+                } else {
+                    agregarAlHistorial("USUARIO: Eligió el camino largo y seguro");
+                    puntuacion += 5;
+                    ultimaEtapa(false);
+                }
+                
+            } else {
+                alert(`"${respuesta}" no es la respuesta correcta. La criatura te mira con decepción.`);
+                agregarAlHistorial("SISTEMA: Mostró alerta de respuesta incorrecta");
+                
+                // Le damos otra oportunidad
+                const segundaOportunidad = confirm("¿Quieres intentar responder de nuevo?");
+                agregarAlHistorial("SISTEMA: Mostró confirmación para intentar de nuevo");
+                
+                if (segundaOportunidad) {
+                    agregarAlHistorial("USUARIO: Decidió intentar de nuevo");
+                    caminoOscuro();
+                } else {
+                    agregarAlHistorial("USUARIO: Decidió no intentar de nuevo");
+                    puntuacion -= 10;
+                    ultimaEtapa(false);
+                }
+            }
+        }
+        
+        // Función para la última etapa
+        function ultimaEtapa(caminoRiesgoso) {
+            let mensaje;
+            
+            if (caminoRiesgoso) {
+                mensaje = "El camino es peligroso pero encuentras una valiosa joya mágica en el proceso.";
+                puntuacion += 10;
+            } else {
+                mensaje = "El camino es seguro y te lleva a salvo hasta el final de tu aventura.";
+                puntuacion += 5;
+            }
+            
+            alert(mensaje);
+            agregarAlHistorial(`SISTEMA: Mostró alerta sobre el resultado del camino elegido`);
+            
+            // Pregunta final
+            const respuestaFinal = prompt("Has llegado al final de tu aventura. ¿Cuál de estos NO es una ventana de diálogo en JavaScript: 'alert', 'confirm', 'prompt', 'dialog'?");
+            agregarAlHistorial("SISTEMA: Mostró prompt con pregunta final sobre ventanas de diálogo");
+            
+            if (respuestaFinal === null) {
+                finalizarAventura("Has decidido no responder a la pregunta final. La aventura termina aquí.");
+                return;
+            }
+            
+            agregarAlHistorial(`USUARIO: Respondió "${respuestaFinal}" a la pregunta final`);
+            
+            // Comprobamos la respuesta
+            const respuestaLower = respuestaFinal.toLowerCase().trim();
+            if (respuestaLower === "dialog") {
+                puntuacion += 20;
+                alert("¡Correcto! 'dialog' no es una ventana de diálogo nativa en JavaScript.");
+                agregarAlHistorial("SISTEMA: Mostró alerta de respuesta correcta");
+            } else {
+                alert(`"${respuestaFinal}" no es la respuesta correcta. La respuesta era "dialog".`);
+                agregarAlHistorial("SISTEMA: Mostró alerta de respuesta incorrecta");
+            }
+            
+            // Finalizamos la aventura
+            finalizarAventura(`¡Tu aventura ha terminado, ${nombreJugador}!`);
+        }
+        
+        // Función para finalizar la aventura
+        function finalizarAventura(mensaje) {
+            alert(mensaje);
+            agregarAlHistorial(`SISTEMA: Mostró alerta con mensaje final: "${mensaje}"`);
+            
+            // Mostramos la puntuación
+            alert(`Tu puntuación final es: ${puntuacion}`);
+            agregarAlHistorial(`SISTEMA: Mostró alerta con puntuación final: ${puntuacion}`);
+            
+            // Actualizamos el resultado
+            let valoracion = "";
+            if (puntuacion >= 50) {
+                valoracion = "¡Excelente!";
+            } else if (puntuacion >= 30) {
+                valoracion = "¡Muy bien!";
+            } else if (puntuacion >= 10) {
+                valoracion = "¡Buen intento!";
+            } else {
+                valoracion = "¡Inténtalo de nuevo!";
+            }
+            
+            resultadoElement.innerHTML = `
+                <p>Aventura completada, ${nombreJugador}!</p>
+                <p>Tu puntuación final: <strong>${puntuacion}</strong></p>
+                <p>${valoracion}</p>
+            `;
+            
+            // Habilitamos el botón de inicio para jugar de nuevo
+            botonIniciar.textContent = "Jugar de nuevo";
+        }
+        
+        // Función para agregar entradas al historial
+        function agregarAlHistorial(mensaje) {
+            const entrada = document.createElement('p');
+            entrada.textContent = mensaje;
+            historialElement.appendChild(entrada);
+            
+            // Hacemos scroll al final del historial
+            historialElement.scrollTop = historialElement.scrollHeight;
+        }
+    </script>
+</body>
+</html>

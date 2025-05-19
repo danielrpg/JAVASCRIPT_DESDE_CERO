@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El método write - Historia Interactiva</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .instrucciones {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #e9f7fe;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .botonera {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #mensaje {
+            margin-top: 20px;
+            text-align: center;
+            font-style: italic;
+            color: #666;
+        }
+
+        .code-example {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            text-align: left;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>El método document.write()</h1>
+        <h2>Historia Interactiva</h2>
+
+        <div class="instrucciones">
+            <p>Este juego demuestra el uso del método <code>document.write()</code> creando una historia interactiva
+                donde cada elección genera una nueva página.</p>
+            <p><strong>¿Qué es document.write()?</strong> Es un método que permite escribir contenido HTML directamente
+                en el documento. Cuando se usa después de que la página ha cargado, reemplaza todo el contenido
+                anterior.</p>
+            <p><strong>IMPORTANTE:</strong> Al hacer una elección, todo el contenido actual será reemplazado con una
+                nueva "página" de la historia.</p>
+
+            <div class="code-example">
+                document.write('&lt;h1&gt;Nuevo contenido&lt;/h1&gt;');<br>
+                document.write('&lt;p&gt;Este texto reemplazará todo lo anterior&lt;/p&gt;');
+            </div>
+        </div>
+
+        <h3>Capítulo 1: El comienzo de la aventura</h3>
+        <p>Te encuentras en un cruce de caminos en un bosque desconocido. La noche está cayendo y necesitas decidir qué
+            camino tomar.</p>
+
+        <div class="botonera">
+            <button onclick="elegirCamino('izquierda')">Tomar el camino de la izquierda</button>
+            <button onclick="elegirCamino('derecha')">Tomar el camino de la derecha</button>
+            <button onclick="elegirCamino('esperar')">Esperar a que amanezca</button>
+        </div>
+
+        <div id="mensaje">Haz tu elección para continuar la historia...</div>
+    </div>
+
+    <script>
+        // Función para elegir un camino y continuar la historia
+        function elegirCamino(eleccion) {
+            // Usamos document.write() para reemplazar todo el contenido
+            if (eleccion === 'izquierda') {
+                document.write(`
+                    <!DOCTYPE html>
+                    <html lang="es">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>El método write - Historia Interactiva</title>
+                        <style>
+                            body {
+                                font-family: Arial, sans-serif;
+                                margin: 0;
+                                padding: 20px;
+                                background-color: #f0f0f0;
+                                text-align: center;
+                                color: #333;
+                            }
+                            .container {
+                                max-width: 800px;
+                                margin: 0 auto;
+                                background: #f5f5dc;
+                                padding: 20px;
+                                border-radius: 10px;
+                                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                            }
+                            h1, h2, h3 {
+                                color: #556b2f;
+                            }
+                            .botonera {
+                                display: flex;
+                                flex-wrap: wrap;
+                                justify-content: center;
+                                gap: 10px;
+                                margin: 20px 0;
+                            }
+                            button {
+                                padding: 10px 20px;
+                                background-color: #556b2f;
+                                color: white;
+                                border: none;
+                                border-radius: 5px;
+                                cursor: pointer;
+                                font-size: 16px;
+                            }
+                            button:hover {
+                                background-color: #6b8e23;
+                            }
+                            .info-write {
+                                margin-top: 30px;
+                                padding: 15px;
+                                background-color: #e9f7fe;
+                                border-radius: 5px;
+                                text-align: left;
+                                font-size: 14px;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container">
+                            <h1>El método document.write()</h1>
+                            <h2>Historia Interactiva</h2>
+                            
+                            <h3>Capítulo 2: El bosque encantado</h3>
+                            <p>Has tomado el camino de la izquierda y te encuentras en un hermoso bosque encantado. Los árboles brillan con un suave resplandor y escuchas melodías extrañas.</p>
+                            <p>De repente, ves a una criatura brillante entre los árboles. ¿Qué haces?</p>
+                            
+                            <div class="botonera">
+                                <button onclick="continuarHistoria('seguir')">Seguir a la criatura</button>
+                                <button onclick="continuarHistoria('esconder')">Esconderse y observar</button>
+                                <button onclick="continuarHistoria('hablar')">Intentar hablar con ella</button>
+                            </div>
+                            
+                            <div class="info-write">
+                                <p><strong>¿Qué acaba de pasar con document.write()?</strong></p>
+                                <p>Todo el contenido HTML anterior ha sido reemplazado por este nuevo contenido. Este es el comportamiento típico de document.write() cuando se usa después de que la página ha cargado completamente.</p>
+                                <p>El código ha ejecutado algo similar a:</p>
+                                <pre>document.write('<!DOCTYPE html><html>...');</pre>
+                                <p>Fíjate que incluso el estilo de la página ha cambiado, ya que todo el HTML, incluido el &lt;head&gt;, ha sido reemplazado.</p>
+                            </div>
+                        </div>
+                        
+                        <script>
+                            function continuarHistoria(eleccion) {
+                                // Otra función que usaría document.write para continuar la historia
+                                document.write('<h1>Fin del Capítulo 2</h1>');
+                                document.write('<p>Has elegido: ' + eleccion + '</p>');
+                                document.write('<p>Esta demostración muestra cómo document.write() reemplaza todo el contenido.</p>');
+                                document.write('<p>En aplicaciones reales, normalmente evitamos usar document.write() y preferimos métodos como innerHTML.</p>');
+                                document.write('<button onclick="location.reload()">Reiniciar Historia</button>');
+                            }
+    </script>
+</body>
+
+</html>
+`);
+} else if (eleccion === 'derecha') {
+document.write(`
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El método write - Historia Interactiva</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #222;
+            text-align: center;
+            color: #ddd;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #ff6b6b;
+        }
+
+        .botonera {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #8b0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #a52a2a;
+        }
+
+        .info-write {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #444;
+            border-radius: 5px;
+            text-align: left;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>El método document.write()</h1>
+        <h2>Historia Interactiva</h2>
+
+        <h3>Capítulo 2: La cueva misteriosa</h3>
+        <p>Has tomado el camino de la derecha y te encuentras frente a una oscura cueva. Un viento frío sopla desde su
+            interior y escuchas extraños susurros.</p>
+        <p>La entrada de la cueva parece tener inscripciones antiguas. ¿Qué decides hacer?</p>
+
+        <div class="botonera">
+            <button onclick="continuarHistoria('entrar')">Entrar en la cueva</button>
+            <button onclick="continuarHistoria('leer')">Intentar leer las inscripciones</button>
+            <button onclick="continuarHistoria('alejarse')">Alejarse de la cueva</button>
+        </div>
+
+        <div class="info-write">
+            <p><strong>Observa el poder de document.write():</strong></p>
+            <p>Toda la página anterior ha sido completamente reemplazada, incluyendo los estilos, colores y estructura.
+            </p>
+            <p>Esto demuestra por qué document.write() puede ser útil para generar contenido completamente nuevo, pero
+                también por qué puede ser peligroso si no se usa con cuidado.</p>
+        </div>
+    </div>
+
+    <script>
+                            function continuarHistoria(eleccion) {
+                                // Otra función que usaría document.write para continuar la historia
+                                document.write('<h1>Fin del Capítulo 2</h1>');
+                                document.write('<p>Has elegido: ' + eleccion + '</p>');
+                                document.write('<p>Esta demostración muestra cómo document.write() reemplaza todo el contenido.</p>');
+                                document.write('<p>En aplicaciones reales, normalmente evitamos usar document.write() y preferimos métodos como innerHTML.</p>');
+                                document.write('<button onclick="location.reload()">Reiniciar Historia</button>');
+                            }
+    </script>
+</body>
+
+</html>
+`);
+} else if (eleccion === 'esperar') {
+document.write(`
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El método write - Historia Interactiva</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f8ff;
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ffd700;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #daa520;
+        }
+
+        .botonera {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #ffd700;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #ffcc00;
+        }
+
+        .info-write {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #fffaf0;
+            border-radius: 5px;
+            text-align: left;
+            font-size: 14px;
+            border: 1px dashed #daa520;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>El método document.write()</h1>
+        <h2>Historia Interactiva</h2>
+
+        <h3>Capítulo 2: El amanecer dorado</h3>
+        <p>Has decidido esperar a que amanezca. Mientras descansas bajo un árbol, el sol comienza a salir, revelando un
+            paisaje completamente diferente al que viste la noche anterior.</p>
+        <p>El bosque está lleno de vida y color. En la distancia, ves una cabaña con humo saliendo de su chimenea. ¿Qué
+            haces?</p>
+
+        <div class="botonera">
+            <button onclick="continuarHistoria('cabaña')">Ir hacia la cabaña</button>
+            <button onclick="continuarHistoria('explorar')">Explorar el bosque</button>
+            <button onclick="continuarHistoria('gritar')">Gritar pidiendo ayuda</button>
+        </div>
+
+        <div class="info-write">
+            <p><strong>El método document.write() en acción:</strong></p>
+            <p>Nuevamente, has visto cómo document.write() ha reemplazado completamente la página anterior con este
+                nuevo contenido.</p>
+            <p>Esta técnica era común en los primeros días de JavaScript, pero actualmente existen métodos más modernos
+                y seguros para actualizar el contenido de una página:</p>
+            <ul style="text-align: left;">
+                <li>element.innerHTML</li>
+                <li>element.textContent</li>
+                <li>Manipulación del DOM con createElement(), appendChild(), etc.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+                            function continuarHistoria(eleccion) {
+                                // Otra función que usaría document.write para continuar la historia
+                                document.write('<h1>Fin del Capítulo 2</h1>');
+                                document.write('<p>Has elegido: ' + eleccion + '</p>');
+                                document.write('<p>Esta demostración muestra cómo document.write() reemplaza todo el contenido.</p>');
+                                document.write('<p>En aplicaciones reales, normalmente evitamos usar document.write() y preferimos métodos como innerHTML.</p>');
+                                document.write('<button onclick="location.reload()">Reiniciar Historia</button>');
+                            }
+    </script>
+</body>
+
+</html>
+`);
+}
+}
+</script>
+</body>
+
+</html>

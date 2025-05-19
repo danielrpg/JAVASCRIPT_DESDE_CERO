@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operadores en JavaScript - Calculadora Mágica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        .calculadora {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .display {
+            background-color: #e9f7fe;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .resultado {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+            min-height: 30px;
+        }
+        .formula {
+            font-family: monospace;
+            margin-bottom: 10px;
+            min-height: 20px;
+            color: #666;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .operadores {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        button {
+            flex: 1;
+            min-width: 50px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .op-aritmetico {
+            background-color: #4CAF50;
+        }
+        .op-comparacion {
+            background-color: #2196F3;
+        }
+        .op-logico {
+            background-color: #9C27B0;
+        }
+        .op-asignacion {
+            background-color: #FF9800;
+        }
+        .info-operadores {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f0f8ff;
+            border-radius: 5px;
+        }
+        .operador {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .log {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 20px;
+            max-height: 150px;
+            overflow-y: auto;
+            font-family: monospace;
+            background-color: #f9f9f9;
+        }
+        .borrar {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Operadores en JavaScript</h1>
+        <h2>Calculadora Mágica</h2>
+        
+        <div class="calculadora">
+            <div class="display">
+                <div class="formula" id="formula"></div>
+                <div class="resultado" id="resultado"></div>
+            </div>
+            
+            <div class="input-group">
+                <label for="valor1">Primer valor:</label>
+                <input type="text" id="valor1" placeholder="Ingrese un valor">
+            </div>
+            
+            <div class="input-group">
+                <label for="valor2">Segundo valor:</label>
+                <input type="text" id="valor2" placeholder="Ingrese un valor">
+            </div>
+            
+            <h3>Operadores Aritméticos</h3>
+            <div class="operadores">
+                <button class="op-aritmetico" onclick="calcular('+')">+ (Suma)</button>
+                <button class="op-aritmetico" onclick="calcular('-')">- (Resta)</button>
+                <button class="op-aritmetico" onclick="calcular('*')">* (Multiplicación)</button>
+                <button class="op-aritmetico" onclick="calcular('/')">/  (División)</button>
+                <button class="op-aritmetico" onclick="calcular('%')">% (Módulo)</button>
+                <button class="op-aritmetico" onclick="calcular('**')">** (Exponenciación)</button>
+            </div>
+            
+            <h3>Operadores de Comparación</h3>
+            <div class="operadores">
+                <button class="op-comparacion" onclick="calcular('==')">== (Igual)</button>
+                <button class="op-comparacion" onclick="calcular('===')">=== (Estrictamente igual)</button>
+                <button class="op-comparacion" onclick="calcular('!=')">!= (Diferente)</button>
+                <button class="op-comparacion" onclick="calcular('!==')">!== (Estrictamente diferente)</button>
+                <button class="op-comparacion" onclick="calcular('>')">❯ (Mayor que)</button>
+                <button class="op-comparacion" onclick="calcular('<')">❮ (Menor que)</button>
+                <button class="op-comparacion" onclick="calcular('>=')">≥ (Mayor o igual)</button>
+                <button class="op-comparacion" onclick="calcular('<=')">≤ (Menor o igual)</button>
+            </div>
+            
+            <h3>Operadores Lógicos</h3>
+            <div class="operadores">
+                <button class="op-logico" onclick="calcular('&&')">&& (AND)</button>
+                <button class="op-logico" onclick="calcular('||')">|| (OR)</button>
+                <button class="op-logico" onclick="calcularUnario('!')">! (NOT)</button>
+            </div>
+            
+            <h3>Operadores de Asignación</h3>
+            <div class="operadores">
+                <button class="op-asignacion" onclick="calcularAsignacion('=')">= (Asignar)</button>
+                <button class="op-asignacion" onclick="calcularAsignacion('+=')">+= (Sumar y asignar)</button>
+                <button class="op-asignacion" onclick="calcularAsignacion('-=')">-= (Restar y asignar)</button>
+                <button class="op-asignacion" onclick="calcularAsignacion('*=')">*= (Multiplicar y asignar)</button>
+                <button class="op-asignacion" onclick="calcularAsignacion('/=')">/= (Dividir y asignar)</button>
+            </div>
+            
+            <h3>Otros Operadores</h3>
+            <div class="operadores">
+                <button class="op-aritmetico" onclick="calcularUnario('++')">++ (Incremento)</button>
+                <button class="op-aritmetico" onclick="calcularUnario('--')">-- (Decremento)</button>
+                <button class="op-logico" onclick="calcularTernario()">? : (Ternario)</button>
+                <button class="op-logico" onclick="calcularTipo()">typeof (Tipo)</button>
+                <button class="borrar" onclick="limpiar()">Limpiar</button>
+            </div>
+            
+            <div class="log" id="log"></div>
+        </div>
+        
+        <div class="info-operadores">
+            <h3>Operadores utilizados en esta calculadora:</h3>
+            <p>Esta aplicación demuestra los diferentes tipos de operadores en JavaScript:</p>
+            
+            <h4>Operadores Aritméticos:</h4>
+            <ul>
+                <li><span class="operador">+</span> - Suma dos valores</li>
+                <li><span class="operador">-</span> - Resta el segundo valor del primero</li>
+                <li><span class="operador">*</span> - Multiplica dos valores</li>
+                <li><span class="operador">/</span> - Divide el primer valor por el segundo</li>
+                <li><span class="operador">%</span> - Devuelve el resto de la división</li>
+                <li><span class="operador">**</span> - Eleva el primer valor a la potencia del segundo</li>
+            </ul>
+            
+            <h4>Operadores de Comparación:</h4>
+            <ul>
+                <li><span class="operador">==</span> - Compara si dos valores son iguales (sin importar el tipo)</li>
+                <li><span class="operador">===</span> - Compara si dos valores y sus tipos son iguales</li>
+                <li><span class="operador">!=</span> - Compara si dos valores son diferentes</li>
+                <li><span class="operador">!==</span> - Compara si dos valores o sus tipos son diferentes</li>
+                <li><span class="operador">></span> - Compara si el primer valor es mayor que el segundo</li>
+                <li><span class="operador"><</span> - Compara si el primer valor es menor que el segundo</li>
+                <li><span class="operador">>=</span> - Compara si el primer valor es mayor o igual que el segundo</li>
+                <li><span class="operador"><=</span> - Compara si el primer valor es menor o igual que el segundo</li>
+            </ul>
+            
+            <h4>Operadores Lógicos:</h4>
+            <ul>
+                <li><span class="operador">&&</span> - AND lógico (devuelve true si ambos operandos son true)</li>
+                <li><span class="operador">||</span> - OR lógico (devuelve true si alguno de los operandos es true)</li>
+                <li><span class="operador">!</span> - NOT lógico (invierte el valor booleano)</li>
+            </ul>
+            
+            <h4>Operadores de Asignación:</h4>
+            <ul>
+                <li><span class="operador">=</span> - Asigna un valor a una variable</li>
+                <li><span class="operador">+=</span> - Suma y asigna (x += y equivale a x = x + y)</li>
+                <li><span class="operador">-=</span> - Resta y asigna (x -= y equivale a x = x - y)</li>
+                <li><span class="operador">*=</span> - Multiplica y asigna (x *= y equivale a x = x * y)</li>
+                <li><span class="operador">/=</span> - Divide y asigna (x /= y equivale a x = x / y)</li>
+            </ul>
+            
+            <h4>Otros Operadores:</h4>
+            <ul>
+                <li><span class="operador">++</span> - Incrementa un valor en 1</li>
+                <li><span class="operador">--</span> - Decrementa un valor en 1</li>
+                <li><span class="operador">? :</span> - Operador ternario (condición ? valor_si_true : valor_si_false)</li>
+                <li><span class="operador">typeof</span> - Devuelve el tipo de un valor</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Variable para almacenar el resultado de operaciones anteriores
+        let memoria = 0;
+        
+        // Función para obtener los valores de entrada
+        function obtenerValores() {
+            let valor1 = document.getElementById('valor1').value;
+            let valor2 = document.getElementById('valor2').value;
+            
+            // Convertimos a números si es posible
+            if (!isNaN(valor1)) {
+                valor1 = Number(valor1);
+            }
+            
+            if (!isNaN(valor2)) {
+                valor2 = Number(valor2);
+            }
+            
+            return [valor1, valor2];
+        }
+        
+        // Función para calcular operaciones binarias (con dos operandos)
+        function calcular(operador) {
+            const [valor1, valor2] = obtenerValores();
+            let resultado;
+            let formula = `${valor1} ${operador} ${valor2}`;
+            
+            try {
+                // Realizamos la operación según el operador
+                switch (operador) {
+                    // Operadores aritméticos
+                    case '+': resultado = valor1 + valor2; break;
+                    case '-': resultado = valor1 - valor2; break;
+                    case '*': resultado = valor1 * valor2; break;
+                    case '/': resultado = valor1 / valor2; break;
+                    case '%': resultado = valor1 % valor2; break;
+                    case '**': resultado = valor1 ** valor2; break;
+                    
+                    // Operadores de comparación
+                    case '==': resultado = valor1 == valor2; break;
+                    case '===': resultado = valor1 === valor2; break;
+                    case '!=': resultado = valor1 != valor2; break;
+                    case '!==': resultado = valor1 !== valor2; break;
+                    case '>': resultado = valor1 > valor2; break;
+                    case '<': resultado = valor1 < valor2; break;
+                    case '>=': resultado = valor1 >= valor2; break;
+                    case '<=': resultado = valor1 <= valor2; break;
+                    
+                    // Operadores lógicos
+                    case '&&': resultado = valor1 && valor2; break;
+                    case '||': resultado = valor1 || valor2; break;
+                    
+                    default: resultado = 'Operación no soportada';
+                }
+                
+                // Guardamos en memoria
+                memoria = resultado;
+                
+                // Mostramos la fórmula y el resultado
+                document.getElementById('formula').textContent = formula;
+                document.getElementById('resultado').textContent = resultado;
+                
+                // Añadimos al log
+                agregarLog(`${formula} = ${resultado}`);
+                
+            } catch (error) {
+                document.getElementById('resultado').textContent = 'Error: ' + error.message;
+                agregarLog(`Error: ${error.message}`);
+            }
+        }
+        
+        // Función para operadores unarios (con un solo operando)
+        function calcularUnario(operador) {
+            const [valor1, _] = obtenerValores();
+            let resultado;
+            let formula;
+            
+            try {
+                switch (operador) {
+                    case '!': 
+                        formula = `${operador}${valor1}`;
+                        resultado = !valor1;
+                        break;
+                    case '++': 
+                        formula = `${valor1}${operador}`;
+                        resultado = valor1 + 1;
+                        document.getElementById('valor1').value = resultado;
+                        break;
+                    case '--': 
+                        formula = `${valor1}${operador}`;
+                        resultado = valor1 - 1;
+                        document.getElementById('valor1').value = resultado;
+                        break;
+                    default: 
+                        resultado = 'Operación no soportada';
+                }
+                
+                // Guardamos en memoria
+                memoria = resultado;
+                
+                // Mostramos la fórmula y el resultado
+                document.getElementById('formula').textContent = formula;
+                document.getElementById('resultado').textContent = resultado;
+                
+                // Añadimos al log
+                agregarLog(`${formula} = ${resultado}`);
+                
+            } catch (error) {
+                document.getElementById('resultado').textContent = 'Error: ' + error.message;
+                agregarLog(`Error: ${error.message}`);
+            }
+        }
+        
+        // Función para operadores de asignación
+        function calcularAsignacion(operador) {
+            const [valor1, valor2] = obtenerValores();
+            let resultado;
+            let formula = `valor1 ${operador} ${valor2}`;
+            
+            try {
+                switch (operador) {
+                    case '=': resultado = valor2; break;
+                    case '+=': resultado = valor1 + valor2; break;
+                    case '-=': resultado = valor1 - valor2; break;
+                    case '*=': resultado = valor1 * valor2; break;
+                    case '/=': resultado = valor1 / valor2; break;
+                    default: resultado = 'Operación no soportada';
+                }
+                
+                // Actualizamos el primer valor
+                document.getElementById('valor1').value = resultado;
+                
+                // Guardamos en memoria
+                memoria = resultado;
+                
+                // Mostramos la fórmula y el resultado
+                document.getElementById('formula').textContent = formula;
+                document.getElementById('resultado').textContent = resultado;
+                
+                // Añadimos al log
+                agregarLog(`${formula} = ${resultado}`);
+                
+            } catch (error) {
+                document.getElementById('resultado').textContent = 'Error: ' + error.message;
+                agregarLog(`Error: ${error.message}`);
+            }
+        }
+        
+        // Función para operador ternario
+        function calcularTernario() {
+            const [valor1, valor2] = obtenerValores();
+            let tercerValor = prompt("Ingrese el tercer valor para el operador ternario:");
+            
+            try {
+                // Convertimos a número si es posible
+                if (!isNaN(tercerValor)) {
+                    tercerValor = Number(tercerValor);
+                }
+                
+                const formula = `${valor1} ? ${valor2} : ${tercerValor}`;
+                const resultado = valor1 ? valor2 : tercerValor;
+                
+                // Guardamos en memoria
+                memoria = resultado;
+                
+                // Mostramos la fórmula y el resultado
+                document.getElementById('formula').textContent = formula;
+                document.getElementById('resultado').textContent = resultado;
+                
+                // Añadimos al log
+                agregarLog(`${formula} = ${resultado}`);
+                
+            } catch (error) {
+                document.getElementById('resultado').textContent = 'Error: ' + error.message;
+                agregarLog(`Error: ${error.message}`);
+            }
+        }
+        
+        // Función para operador typeof
+        function calcularTipo() {
+            const [valor1, _] = obtenerValores();
+            
+            try {
+                const formula = `typeof ${valor1}`;
+                const resultado = typeof valor1;
+                
+                // Mostramos la fórmula y el resultado
+                document.getElementById('formula').textContent = formula;
+                document.getElementById('resultado').textContent = resultado;
+                
+                // Añadimos al log
+                agregarLog(`${formula} = ${resultado}`);
+                
+            } catch (error) {
+                document.getElementById('resultado').textContent = 'Error: ' + error.message;
+                agregarLog(`Error: ${error.message}`);
+            }
+        }
+        
+        // Función para limpiar los campos
+        function limpiar() {
+            document.getElementById('valor1').value = '';
+            document.getElementById('valor2').value = '';
+            document.getElementById('formula').textContent = '';
+            document.getElementById('resultado').textContent = '';
+        }
+        
+        // Función para añadir entrada al log
+        function agregarLog(mensaje) {
+            const log = document.getElementById('log');
+            const entrada = document.createElement('div');
+            entrada.textContent = mensaje;
+            log.appendChild(entrada);
+            
+            // Hacemos scroll al final del log
+            log.scrollTop = log.scrollHeight;
+        }
+    </script>
+</body>
+</html>

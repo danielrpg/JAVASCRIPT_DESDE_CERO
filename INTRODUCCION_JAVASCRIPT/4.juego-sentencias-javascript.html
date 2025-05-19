@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentencias en JavaScript - Juego del Adivino</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .juego {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .info-sentencias {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #e9f7fe;
+            border-radius: 5px;
+            text-align: left;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px;
+            width: 60px;
+            text-align: center;
+        }
+        #mensaje, #historial {
+            margin-top: 15px;
+            min-height: 20px;
+        }
+        .sentencia {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        #historial {
+            max-height: 150px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sentencias en JavaScript</h1>
+        <h2>Juego del Adivino</h2>
+        
+        <div class="juego">
+            <p>Estoy pensando en un número entre 1 y 100. ¿Puedes adivinarlo?</p>
+            
+            <input type="number" id="intento" min="1" max="100" placeholder="?">
+            <button id="comprobar">Adivinar</button>
+            <button id="reiniciar">Reiniciar</button>
+            
+            <div id="mensaje"></div>
+            <div id="historial"></div>
+        </div>
+        
+        <div class="info-sentencias">
+            <h3>Sentencias JavaScript utilizadas en este juego:</h3>
+            <ul>
+                <li><span class="sentencia">if...else if...else</span> - Para comparar el número del usuario con el número secreto y dar pistas.</li>
+                <li><span class="sentencia">switch</span> - Para determinar el mensaje basado en la diferencia entre números.</li>
+                <li><span class="sentencia">for</span> - Para verificar si el número ya ha sido intentado anteriormente.</li>
+                <li><span class="sentencia">while</span> - Para generar un número aleatorio que no sea fácil de predecir.</li>
+                <li><span class="sentencia">función</span> - Para organizar el código en bloques reutilizables.</li>
+                <li><span class="sentencia">return</span> - Para salir de una función y devolver un valor.</li>
+                <li><span class="sentencia">break</span> - Para salir de bucles cuando se cumple una condición.</li>
+                <li><span class="sentencia">continue</span> - Para saltar a la siguiente iteración en un bucle.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Inicialización de variables
+        let numeroSecreto;
+        let intentos = [];
+        let intentosMaximos = 10;
+        
+        // Elementos del DOM
+        const inputIntento = document.getElementById('intento');
+        const botonComprobar = document.getElementById('comprobar');
+        const botonReiniciar = document.getElementById('reiniciar');
+        const elementoMensaje = document.getElementById('mensaje');
+        const elementoHistorial = document.getElementById('historial');
+        
+        // Función para generar un número aleatorio
+        function generarNumeroSecreto() {
+            // Usamos un bucle while para generar el número
+            let timestamp = new Date().getTime();
+            let numero = 0;
+            
+            while (numero < 1 || numero > 100) {
+                numero = Math.floor((timestamp * Math.random()) % 100) + 1;
+            }
+            
+            return numero;
+        }
+        
+        // Función para iniciar o reiniciar el juego
+        function iniciarJuego() {
+            numeroSecreto = generarNumeroSecreto();
+            intentos = [];
+            intentosMaximos = 10;
+            
+            // Limpiamos la interfaz
+            inputIntento.value = '';
+            elementoMensaje.innerHTML = 'Tienes ' + intentosMaximos + ' intentos para adivinar el número.';
+            elementoMensaje.style.color = 'black';
+            elementoHistorial.innerHTML = '';
+            
+            // Enfocamos el input
+            inputIntento.focus();
+            
+            // Para fines de depuración, mostramos el número secreto en la consola
+            console.log('Número secreto: ' + numeroSecreto);
+        }
+        
+        // Función para verificar si un número ya ha sido intentado
+        function yaIntentado(numero) {
+            // Usamos un bucle for para recorrer los intentos anteriores
+            for (let i = 0; i < intentos.length; i++) {
+                if (intentos[i] === numero) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        // Función para clasificar la diferencia
+        function clasificarDiferencia(diferencia) {
+            // Usamos un switch para clasificar la diferencia
+            switch (true) {
+                case (diferencia === 0):
+                    return "¡Correcto!";
+                case (diferencia <= 3):
+                    return "¡Muy caliente!";
+                case (diferencia <= 10):
+                    return "Caliente";
+                case (diferencia <= 25):
+                    return "Tibio";
+                case (diferencia <= 50):
+                    return "Frío";
+                default:
+                    return "Muy frío";
+            }
+        }
+        
+        // Función para comprobar el intento del usuario
+        function comprobarIntento() {
+            // Obtenemos el valor del input
+            const intento = parseInt(inputIntento.value);
+            
+            // Validamos el input
+            if (isNaN(intento) || intento < 1 || intento > 100) {
+                elementoMensaje.innerHTML = 'Por favor, introduce un número entre 1 y 100.';
+                elementoMensaje.style.color = 'red';
+                return;
+            }
+            
+            // Verificamos si el número ya ha sido intentado
+            if (yaIntentado(intento)) {
+                elementoMensaje.innerHTML = 'Ya has intentado el número ' + intento + '. Prueba con otro.';
+                elementoMensaje.style.color = 'orange';
+                return;
+            }
+            
+            // Añadimos el intento a la lista
+            intentos.push(intento);
+            intentosMaximos--;
+            
+            // Calculamos la diferencia
+            const diferencia = Math.abs(numeroSecreto - intento);
+            
+            // Usamos if...else if...else para comparar
+            if (intento === numeroSecreto) {
+                // ¡Adivinó!
+                elementoMensaje.innerHTML = '¡Felicidades! Has adivinado el número ' + numeroSecreto + ' en ' + intentos.length + ' intentos.';
+                elementoMensaje.style.color = 'green';
+                finalizarJuego(true);
+            } else if (intentosMaximos === 0) {
+                // Sin más intentos
+                elementoMensaje.innerHTML = 'Lo siento, has agotado tus intentos. El número era ' + numeroSecreto + '.';
+                elementoMensaje.style.color = 'red';
+                finalizarJuego(false);
+            } else {
+                // Sigue jugando
+                const clasificacion = clasificarDiferencia(diferencia);
+                const direccion = intento < numeroSecreto ? 'mayor' : 'menor';
+                
+                elementoMensaje.innerHTML = clasificacion + ' El número es ' + direccion + ' que ' + intento + '. Te quedan ' + intentosMaximos + ' intentos.';
+                
+                // Actualizamos el historial
+                const entradaHistorial = document.createElement('div');
+                entradaHistorial.textContent = 'Intento #' + intentos.length + ': ' + intento + ' - ' + clasificacion;
+                elementoHistorial.appendChild(entradaHistorial);
+                
+                // Limpiamos y enfocamos el input
+                inputIntento.value = '';
+                inputIntento.focus();
+            }
+        }
+        
+        // Función para finalizar el juego
+        function finalizarJuego(victoria) {
+            // Desactivamos el input y el botón
+            inputIntento.disabled = true;
+            botonComprobar.disabled = true;
+        }
+        
+        // Eventos
+        botonComprobar.addEventListener('click', comprobarIntento);
+        botonReiniciar.addEventListener('click', iniciarJuego);
+        
+        // Permitir presionar Enter para comprobar
+        inputIntento.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                comprobarIntento();
+            }
+        });
+        
+        // Iniciamos el juego al cargar la página
+        iniciarJuego();
+    </script>
+</body>
+</html>

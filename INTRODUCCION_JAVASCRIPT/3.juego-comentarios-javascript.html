@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comentarios en JavaScript - Juego de Debugging</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .codigo-container {
+            position: relative;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .codigo {
+            font-family: monospace;
+            background-color: #2d2d2d;
+            color: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre;
+            overflow-x: auto;
+            line-height: 1.5;
+        }
+
+        .comentario {
+            color: #6a9955;
+            /* Verde para comentarios */
+        }
+
+        .string {
+            color: #ce9178;
+            /* Naranja para strings */
+        }
+
+        .keyword {
+            color: #569cd6;
+            /* Azul para keywords */
+        }
+
+        .funcion {
+            color: #dcdcaa;
+            /* Amarillo para funciones */
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .mensaje {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #e9f7fe;
+            border-radius: 5px;
+        }
+
+        .pista {
+            background-color: #fff3cd;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border-left: 5px solid #ffc107;
+            text-align: left;
+            display: none;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            min-height: 50px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Comentarios en JavaScript</h1>
+        <h2>Juego de Debugging con Comentarios</h2>
+
+        <div class="mensaje">
+            <p>Hay un error en el siguiente código. ¡Usa los comentarios como pistas para encontrarlo!</p>
+            <p>Cuando creas que has encontrado el problema, haz clic en "Ejecutar" para probar el código.</p>
+        </div>
+
+        <div class="codigo-container">
+            <pre class="codigo"><span class="comentario">// ===== JUEGO DE DEBUGGING CON COMENTARIOS =====
+// Este código debería mostrar un contador que cuenta de 1 a 5.
+// Si encuentras un error, córregelo editando mentalmente el código.</span>
+
+<span class="keyword">function</span> <span class="funcion">iniciarContador</span>() {
+    <span class="keyword">let</span> contador = 0;
+    <span class="keyword">let</span> mensaje = <span class="string">""</span>;
+    
+    <span class="comentario">/* 
+     * El bucle debería ejecutarse 5 veces, sumando 1 en cada iteración.
+     * PISTA 1: Revisa la condición del bucle for.
+     */</span>
+    <span class="keyword">for</span> (let i = 0; i < 5; i++) {
+        contador++; <span class="comentario">// Incrementamos el contador</span>
+        mensaje += <span class="string">"Contador: "</span> + contador + <span class="string">"&lt;br&gt;"</span>;
+    }
+    
+    <span class="comentario">// PISTA 2: ¿Estamos mostrando el mensaje correctamente?</span>
+    <span class="comentario">// TODO: El elemento donde mostrar el resultado tiene id="resultado"</span>
+    document.getElementById(<span class="string">"resultados"</span>).innerHTML = mensaje;
+    
+    <span class="comentario">/* PISTA 3: La función document.getElementById() busca un elemento
+     * con el id exacto que le pasamos.
+     * Si el id no existe, devolverá null y causará un error.
+     */</span>
+}</pre>
+        </div>
+
+        <button onclick="mostrarPista()">Mostrar Pista</button>
+        <button onclick="ejecutarCodigo()">Ejecutar Código</button>
+
+        <div class="pista" id="pista">
+            <strong>Pista adicional:</strong> El error está en el ID utilizado para obtener el elemento donde mostrar el
+            resultado. En el código se usa "resultados" pero el elemento correcto tiene el ID "resultado" (sin la 's'
+            final).
+        </div>
+
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        // Función para mostrar pista adicional
+        function mostrarPista() {
+            document.getElementById("pista").style.display = "block";
+        }
+
+        // Función que ejecuta el código corregido
+        function ejecutarCodigo() {
+            try {
+                // Versión corregida del código
+                let contador = 0;
+                let mensaje = "";
+
+                // El bucle se ejecuta 5 veces, sumando 1 en cada iteración
+                for (let i = 0; i < 5; i++) {
+                    contador++; // Incrementamos el contador
+                    mensaje += "Contador: " + contador + "<br>";
+                }
+
+                // Corregido: Usamos "resultado" en lugar de "resultados"
+                document.getElementById("resultado").innerHTML = mensaje;
+
+                // Mensaje de éxito
+                document.getElementById("resultado").innerHTML +=
+                    "<div style='margin-top:10px; color:green; font-weight:bold;'>" +
+                    "¡Correcto! Has encontrado y corregido el error en el código. " +
+                    "El problema estaba en el ID del elemento: se usaba 'resultados' en vez de 'resultado'.</div>";
+            } catch (error) {
+                // Si hay algún error, lo mostramos
+                document.getElementById("resultado").innerHTML =
+                    "<div style='color:red;'>Error: " + error.message +
+                    "<br>Sigue buscando el error en el código.</div>";
+            }
+        }
+    </script>
+</body>
+
+</html>
