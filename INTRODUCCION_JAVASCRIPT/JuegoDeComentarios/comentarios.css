@@ -1,0 +1,98 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+}
+
+.codigo-container {
+    position: relative;
+    text-align: left;
+    margin: 20px 0;
+}
+
+.codigo {
+    font-family: monospace;
+    background-color: #2d2d2d;
+    color: #f0f0f0;
+    padding: 15px;
+    border-radius: 5px;
+    white-space: pre;
+    overflow-x: auto;
+    line-height: 1.5;
+}
+
+.comentario {
+    color: #6a9955;
+    /* Verde para comentarios */
+}
+
+.string {
+    color: #ce9178;
+    /* Naranja para strings */
+}
+
+.keyword {
+    color: #569cd6;
+    /* Azul para keywords */
+}
+
+.funcion {
+    color: #dcdcaa;
+    /* Amarillo para funciones */
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.mensaje {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #e9f7fe;
+    border-radius: 5px;
+}
+
+.pista {
+    background-color: #fff3cd;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border-left: 5px solid #ffc107;
+    text-align: left;
+    display: none;
+}
+
+#resultado {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    min-height: 50px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+}

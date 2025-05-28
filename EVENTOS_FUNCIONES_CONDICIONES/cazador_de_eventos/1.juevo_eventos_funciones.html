@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cazador de Eventos - Aprende JavaScript</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Cazador de Eventos</h1>
+        <p class="subtitle">Aprende JavaScript mientras juegas: Eventos, this, y más!</p>
+
+        <div class="game-info">
+            <div>Puntos: <span id="score">0</span></div>
+            <div>Tiempo: <span id="time">60</span>s</div>
+            <div>Nivel: <span id="level">1</span></div>
+        </div>
+
+        <div class="game-area" id="gameArea">
+            <!-- Los objetivos aparecerán aquí -->
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-start" id="startBtn">🚀 Iniciar Juego</button>
+            <button class="btn btn-stop" id="stopBtn">⏹️ Detener</button>
+            <input type="text" class="hidden-input" id="hiddenInput" placeholder="Para eventos de teclado">
+        </div>
+
+        <div class="instructions">
+            <h3>🎮 Cómo Jugar:</h3>
+            <p><strong>🔴 Rojos (click):</strong> Haz clic para ganar puntos</p>
+            <p><strong>🔵 Azules (mouseover):</strong> Pasa el mouse encima</p>
+            <p><strong>🟡 Amarillos (keydown):</strong> Presiona cualquier tecla cuando aparezcan</p>
+            <p><strong>🟢 Verdes (focus):</strong> Haz clic para enfocar</p>
+            <p>¡Cada objetivo enseña un concepto diferente de eventos en JavaScript!</p>
+        </div>
+
+        <div class="concept-log" id="conceptLog">
+            <div class="log-entry">🚀 ¡Listo para aprender JavaScript con eventos!</div>
+        </div>
+
+        <div class="game-over" id="gameOver">
+            <h2>🎉 ¡Juego Terminado!</h2>
+            <p>Puntuación Final: <span id="finalScore">0</span></p>
+            <p>¡Has aprendido sobre eventos, this, y manejo de eventos en JavaScript!</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
