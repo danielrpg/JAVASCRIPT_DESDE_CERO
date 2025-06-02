@@ -1,4 +1,8 @@
 // Clase principal del juego - Demuestra el uso del objeto 'this'
+/**
+ * Esto funciona en versiones modernas de JavaScript (ES6+).
+ * Asegúrate de que tu entorno soporte clases y módulos.
+ */
 class EventHunterGame {
     constructor() {
         // Propiedades del juego - 'this' se refiere a la instancia del juego

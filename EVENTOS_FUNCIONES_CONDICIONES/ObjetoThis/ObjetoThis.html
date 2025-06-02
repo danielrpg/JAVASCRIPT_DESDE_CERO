@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Objeto 'this' en JavaScript</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 El Objeto 'this' en JavaScript</h1>
+        
+        <p><strong>¿Qué es 'this'?</strong></p>
+        <p>En JavaScript, <span class="highlight">'this'</span> es una palabra especial que se refiere al objeto que está ejecutando la función en ese momento. Es como decir "este objeto aquí".</p>
+        
+        <h2>📝 Ejemplo 1: 'this' en un Objeto Simple</h2>
+        <div class="example">
+            <button class="button" onclick="ejemplo1()">🎯 Ejecutar Ejemplo 1</button>
+            <div id="output1" class="output" style="display:none;"></div>
+        </div>
+
+        <h2>🏠 Ejemplo 2: 'this' Cambia Según el Contexto</h2>
+        <div class="example">
+            <button class="button" onclick="ejemplo2()">🎯 Ejecutar Ejemplo 2</button>
+            <div id="output2" class="output" style="display:none;"></div>
+        </div>
+
+        <h2>🔧 Ejemplo 3: Usando 'bind()' para Fijar 'this'</h2>
+        <div class="example">
+            <button class="button" onclick="ejemplo3()">🎯 Ejecutar Ejemplo 3</button>
+            <div id="output3" class="output" style="display:none;"></div>
+        </div>
+
+        <h2>🎪 Ejemplo 4: 'this' en Funciones Arrow vs Normales</h2>
+        <div class="example">
+            <button class="button" onclick="ejemplo4a()">🚫 Función Normal</button>
+            <button class="button" onclick="ejemplo4b()">✅ Arrow Function</button>
+            <div id="output4" class="output" style="display:none;"></div>
+        </div>
+
+        <h2>🎨 Ejemplo Interactivo: Botones con 'this'</h2>
+        <div class="example">
+            <p>Contador actual: <span id="contadorValor">0</span></p>
+            <button class="button" onclick="incrementarContador()">➕ Incrementar</button>
+            <button class="button" onclick="resetearContador()">🔄 Resetear</button>
+        </div>
+
+        <div style="margin-top: 40px; padding: 20px; background: #e6fffa; border-radius: 8px; border-left: 4px solid #38b2ac;">
+            <h3>📋 Resumen Rápido:</h3>
+            <ul style="margin: 10px 0;">
+                <li><strong>'this'</strong> = "este objeto aquí"</li>
+                <li>En métodos de objetos → se refiere al objeto</li>
+                <li>Funciones sueltas → puede dar undefined o window</li>
+                <li><strong>bind()</strong> = amarra 'this' a un objeto específico</li>
+                <li><strong>Arrow functions</strong> = no tienen su propio 'this'</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
