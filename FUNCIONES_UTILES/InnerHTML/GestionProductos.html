@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Tablas de Productos</title>
+    <link rel="stylesheet" href="./css/estilos.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sistema de Gestión de Productos</h1>
+        
+        <div class="controles">
+            <button class="btn-generar" onclick="generarTabla()">Generar Tabla</button>
+            <button class="btn-agregar" onclick="agregarProductoAleatorio()">Agregar Producto</button>
+            <button class="btn-generar" onclick="limpiarTabla()">Limpiar Tabla</button>
+        </div>
+
+        <!-- Contenedor donde se generará la tabla -->
+        <div id="tabla-productos">
+            <!-- La tabla se generará aquí dinámicamente -->
+        </div>
+    </div>
+
+    <script src="./js/innerHTML.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuarios</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Registro de Usuarios</h1>
+        
+        <!-- Reloj en tiempo real -->
+        <div id="fecha-hora" class="fecha-hora">
+            <!-- La fecha y hora se actualiza aquí -->
+        </div>
+
+        <!-- Formulario de registro -->
+        <div class="formulario">
+            <div class="campo">
+                <label for="nombre">Nombre completo:</label>
+                <input type="text" id="nombre" placeholder="Ej: Juan Pérez">
+            </div>
+
+            <div class="campo">
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="Ej: juan@email.com">
+            </div>
+
+            <div class="campo">
+                <label for="edad">Edad:</label>
+                <input type="number" id="edad" placeholder="Ej: 25" min="1" max="120">
+            </div>
+
+            <button onclick="registrarUsuario()">Registrar Usuario</button>
+            <button class="btn-limpiar" onclick="limpiarRegistros()">Limpiar Todos los Registros</button>
+        </div>
+
+        <!-- Contador de usuarios -->
+        <div id="contador" class="contador">
+            Total de usuarios registrados: 0
+        </div>
+
+        <!-- Lista de usuarios registrados -->
+        <div class="lista-usuarios">
+            <h3>👥 Usuarios Registrados</h3>
+            <div id="usuarios-container">
+                <!-- Los usuarios aparecerán aquí -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Simple con Validación</title>
+    <link rel="stylesheet" href="./css/estilos.css">
+</head>
+<body>
+    <div class="formulario">
+        <h2>Registro de Usuario</h2>
+        
+        <form id="miFormulario">
+            <div class="campo">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" placeholder="Escribe tu nombre">
+                <div id="error-nombre" class="error"></div>
+            </div>
+
+            <div class="campo">
+                <label for="email">Email:</label>
+                <input type="text" id="email" placeholder="ejemplo@correo.com">
+                <div id="error-email" class="error"></div>
+            </div>
+
+            <div class="campo">
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" placeholder="123456789">
+                <div id="error-telefono" class="error"></div>
+            </div>
+
+            <button type="submit">Enviar</button>
+        </form>
+
+        <div id="mensaje-exito" class="mensaje-exito" style="display: none;">
+            ¡Formulario enviado correctamente!
+        </div>
+    </div>
+
+    <script src="./js/validacion.js"></script>
+</body>
+</html>
