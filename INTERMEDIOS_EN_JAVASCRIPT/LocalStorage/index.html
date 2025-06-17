@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalStorage</title>
+    <link rel="stylesheet" href="./css/estilos.css">
+</head>
+<body>
+    <div class="container">
+        <h1>💾 LocalStorage Sencillo</h1>
+        
+        <!-- DEFINICIÓN -->
+        <div class="definicion">
+            <h3>🔍 ¿Qué es LocalStorage?</h3>
+            <p>LocalStorage es como una <span class="highlight">libreta de notas digital</span> que:</p>
+            <ul>
+                <li>📝 <strong>Guarda información</strong> en tu navegador</li>
+                <li>🔄 <strong>NO se borra</strong> cuando cierras la página</li>
+                <li>💾 <strong>Persiste</strong> hasta que tú la borres</li>
+                <li>🔒 <strong>Es privada</strong> de cada sitio web</li>
+            </ul>
+        </div>
+
+        <!-- EJEMPLO PRÁCTICO 1 -->
+        <div class="ejemplo">
+            <h3>👤 Ejemplo 1: Guardar tu Nombre</h3>
+            <p>Tu nombre se recordará para siempre (hasta que borres el historial):</p>
+            
+            <input type="text" id="mi-nombre" placeholder="Escribe tu nombre">
+            <button onclick="guardarNombre()">💾 Guardar mi Nombre</button>
+            <button onclick="mostrarNombre()">👀 Ver Nombre Guardado</button>
+            <button onclick="borrarNombre()" class="btn-danger">🗑️ Borrar Nombre</button>
+            
+            <div id="resultado-nombre" class="resultado">
+                Haz clic en "Ver Nombre Guardado" para ver si hay algo guardado...
+            </div>
+
+            <div class="tip">
+                💡 <strong>Prueba esto:</strong> Guarda tu nombre, luego recarga la página (F5). ¡Tu nombre seguirá ahí!
+            </div>
+        </div>
+
+        <!-- EJEMPLO PRÁCTICO 2 -->
+        <div class="ejemplo">
+            <h3>🎨 Ejemplo 2: Recordar Color Favorito</h3>
+            <p>El color que elijas se aplicará automáticamente cuando vuelvas:</p>
+            
+            <select id="color-favorito" onchange="guardarColor()">
+                <option value="">Selecciona tu color favorito</option>
+                <option value="#e74c3c">🔴 Rojo</option>
+                <option value="#3498db">🔵 Azul</option>
+                <option value="#2ecc71">🟢 Verde</option>
+                <option value="#f39c12">🟡 Amarillo</option>
+                <option value="#9b59b6">🟣 Morado</option>
+            </select>
+            
+            <button onclick="aplicarColorGuardado()">🎨 Aplicar Color Guardado</button>
+            <button onclick="resetearColor()" class="btn-danger">🔄 Resetear Color</button>
+            
+            <div id="resultado-color" class="resultado">
+                Selecciona un color y se guardará automáticamente...
+            </div>
+        </div>
+
+        <!-- EJEMPLO PRÁCTICO 3 -->
+        <div class="ejemplo">
+            <h3>📊 Ejemplo 3: Contador Persistente</h3>
+            <p>Un contador que recuerda su valor:</p>
+            
+            <div id="contador-display" style="font-size: 3em; text-align: center; margin: 20px 0;">0</div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                <button onclick="incrementar()">➕ Sumar 1</button>
+                <button onclick="decrementar()">➖ Restar 1</button>
+                <button onclick="resetearContador()" class="btn-danger">🔄 Reset</button>
+            </div>
+            
+            <div id="resultado-contador" class="resultado">
+                Contador cargado desde LocalStorage...
+            </div>
+
+            <div class="tip">
+                🧪 <strong>Experimento:</strong> Cambia el número y recarga la página. ¡El contador mantiene su valor!
+            </div>
+        </div>
+
+        <!-- ESTADO DEL LOCALSTORAGE -->
+        <div class="ejemplo">
+            <h3>📋 Estado Actual del LocalStorage</h3>
+            <button onclick="mostrarTodoElStorage()">🔍 Ver Todo lo Guardado</button>
+            <button onclick="limpiarTodoElStorage()" class="btn-danger">🧹 Limpiar Todo</button>
+            
+            <div id="storage-info" class="resultado">
+                Haz clic en "Ver Todo lo Guardado" para inspeccionar...
+            </div>
+        </div>
+    </div>
+    <script src="./js/localStorage.js"></script>
+</body>
+</html>

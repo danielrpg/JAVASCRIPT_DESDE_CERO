@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sincronía vs Asincronía - Ejemplo Simple</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ Sincronía vs Asincronía</h1>
+        <p class="subtitle">Entendiendo cómo funciona el tiempo en JavaScript</p>
+
+        <div class="demo-section">
+            <h2>🧪 Demo Interactivo</h2>
+            <p>Haz clic en los botones y observa cómo se comporta cada tipo de código:</p>
+            
+            <div class="demo-buttons">
+                <button class="btn-sincrono" onclick="demoSincrono()" id="btn-sincrono">
+                    🔄 Ejecutar Código SÍNCRONO
+                </button>
+                <button class="btn-asincrono" onclick="demoAsincrono()" id="btn-asincrono">
+                    ⚡ Ejecutar Código ASÍNCRONO
+                </button>
+                <button class="btn-reset" onclick="limpiarLog()">
+                    🧹 Limpiar Consola
+                </button>
+            </div>
+
+            <div class="tiempo-transcurrido" id="tiempo-transcurrido">
+                ⏱️ Tiempo transcurrido: 0 segundos
+            </div>
+
+            <div class="progress">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+
+            <div class="log" id="log-consola">
+                <div class="log-line log-info">🎯 Consola lista. Haz clic en los botones para ver la diferencia...</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

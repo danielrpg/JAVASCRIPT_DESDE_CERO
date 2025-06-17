@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Gastos</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Calculadora de Gastos Mensual</h1>
+        <div id="gastosForm">
+            <div class="campo">
+                <label for="categoria">Seleccione el Tipo de Gasto:</label>
+                <select id="categoria" name="categoria" required>
+                    <option value="">Seleccione una categoría</option>
+                    <option value="alquiler">Alquiler</option>
+                    <option value="comida">Comida</option>
+                    <option value="transporte">Transporte</option>
+                    <option value="entrenimiento">Entretenimiento</option>
+                    <option value="salud">Salud</option>
+                </select>
+            </div>
+            <div class="campo">
+                <label for="descripcion">Descripcion del Gasto:</label>
+                <input type="text" id="descripcion" name="descripcion">
+            </div>
+            <div class="campo">
+                <label for="gasto">Monto (Bs.-):</label>
+                <input type="number" id="gasto" name="gasto" required>
+            </div>
+            <button onclick="agregarGasto()">Agregar Gasto</button>
+        </div>
+        <div id="lista-gastos">
+            <h2>Lista de Gastos</h2>
+            <div id="gastosLista">
+                <!-- Aquí se mostrarán los gastos agregados -->
+            </div>
+            <div id="total-gastos">
+
+            </div>
+        </div>
+    </div>
+    <script src="./js/CalculadoraGastos.js"></script>
+</body>
+
+</html>

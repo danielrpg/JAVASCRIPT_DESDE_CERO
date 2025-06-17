@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manejo de Errores - Práctico y Simple</title>
+    <link rel="stylesheet" href="./css/estilos.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🛡️ Manejo de Errores en JavaScript</h1>
+
+        <div class="grid">
+            <div class="ejemplo">
+                <h3>🧮 Ejemplo 1: Calculadora Segura</h3>
+                <p>División que no se rompe nunca:</p>
+                
+                <input type="text" id="num1" placeholder="Primer número (ej: 10)">
+                <input type="text" id="num2" placeholder="Segundo número (ej: 2)">
+                <button onclick="dividirSeguro()">➗ Dividir</button>
+                
+                <div id="resultado-calc" class="resultado">
+                    Esto es resultado
+                </div>
+                
+                <div class="tip">
+                    🧪 <strong>Prueba estos casos:</strong><br>
+                    • Números normales: 10 ÷ 2<br>
+                    • División por cero: 10 ÷ 0<br>
+                    • Texto en lugar de números: "hola" ÷ 5<br>
+                    • Campos vacíos
+                </div>
+            </div>
+
+            <div class="ejemplo">
+                <h3>📧 Ejemplo 2: Validar Email</h3>
+                <p>Verificar si un email es válido:</p>
+                
+                <input type="text" id="email" placeholder="tu@email.com">
+                <button onclick="validarEmail()">✅ Validar Email</button>
+                
+                <div id="resultado-email" class="resultado"></div>
+                
+                <div class="tip">
+                    🧪 <strong>Prueba estos casos:</strong><br>
+                    • Email válido: juan@gmail.com<br>
+                    • Sin @: juangmail.com<br>
+                    • Sin punto: juan@gmailcom<br>
+                    • Vacío
+                </div>
+            </div>
+        </div>
+
+        <div class="ejemplo">
+            <h3>🔄 Ejemplo 3: Convertir Texto a JSON</h3>
+            <p>JSON es un formato de datos muy común, pero puede tener errores de sintaxis:</p>
+            
+            <input type="text" id="json-texto" placeholder='{"nombre": "Juan", "edad": 25}' style="font-family: monospace;">
+            <button onclick="convertirJSON()">🔍 Convertir a JSON</button>
+            
+            <div id="resultado-json" class="resultado"></div>
+            
+            <div class="tip">
+                🧪 <strong>Prueba estos casos:</strong><br>
+                • JSON válido: {"nombre": "Juan", "edad": 25}<br>
+                • Sin comillas: {nombre: Juan, edad: 25}<br>
+                • Coma extra: {"nombre": "Juan",}<br>
+                • Texto normal: Hola mundo
+            </div>
+        </div>
+
+        <div class="ejemplo">
+            <h3>🌐 Ejemplo 4: Llamada a API (Simulada)</h3>
+            <p>Las APIs pueden fallar por muchas razones:</p>
+            
+            <input type="number" id="user-id" placeholder="ID de usuario (1-10)" min="1" max="10">
+            <button onclick="obtenerUsuario()">👤 Obtener Usuario</button>
+            
+            <div id="resultado-api" class="resultado"></div>
+            
+            <div class="tip">
+                🧪 <strong>Prueba estos casos:</strong><br>
+                • ID válido: 1, 2, 3...<br>
+                • ID que no existe: 99<br>
+                • ID inválido: -1<br>
+                • Campo vacío
+            </div>
+        </div>
+    </div>
+    <script src="./js/manejo_errores.js"></script>
+</body>
+</html>

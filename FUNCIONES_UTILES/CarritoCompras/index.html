@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras Básico</title>
+    <link rel="stylesheet" href="./css/carrito.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🛒 Mi Tienda Online</h1>
+        
+        <!-- Productos disponibles -->
+        <div class="productos" id="productos">
+            <!-- Los productos se cargarán aquí con JavaScript -->
+        </div>
+        
+        <!-- Carrito de compras -->
+        <div class="carrito">
+            <h2>🛍️ Carrito de Compras</h2>
+            <button id="vaciar-carrito" onclick="vaciarCarrito()" class="vaciar-btn">Vaciar Carrito</button>
+            <div id="carrito-items">
+                <div class="carrito-vacio">Tu carrito está vacío</div>
+            </div>
+            <div class="total" id="total">Total: $0.00</div>
+        </div>
+    </div>
+    <script src="./js/carrito.js"></script>
+</body>
+</html>

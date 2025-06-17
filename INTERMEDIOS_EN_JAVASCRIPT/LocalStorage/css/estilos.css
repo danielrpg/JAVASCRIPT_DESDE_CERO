@@ -1,0 +1,108 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    min-height: 100vh;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+.definicion {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border-left: 4px solid #00cec9;
+}
+
+.ejemplo {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 25px;
+    margin: 20px 0;
+    border-radius: 12px;
+    border-left: 4px solid #55efc4;
+}
+
+input,
+button {
+    width: 100%;
+    padding: 15px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+input {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+}
+
+input::placeholder {
+    color: #666;
+}
+
+button {
+    background: linear-gradient(45deg, #00b894, #00cec9);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: linear-gradient(45deg, #e17055, #d63031);
+}
+
+.resultado {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    min-height: 50px;
+    font-family: monospace;
+}
+
+.codigo {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    margin: 15px 0;
+    border-left: 3px solid #fdcb6e;
+}
+
+.highlight {
+    background: rgba(253, 203, 110, 0.3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #fdcb6e;
+}
+
+.tip {
+    background: rgba(116, 185, 255, 0.2);
+    border-left: 4px solid #74b9ff;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 0 8px 8px 0;
+}
